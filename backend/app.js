@@ -1,28 +1,29 @@
 const express = require('express');
 const cors = require('cors')
-
+const mongoose = require('mongoose');
+const postModel = require('./models/post');
 const app = express();
 
-app.use('/api/posts', cors(), (req, res, next) => {
-    const stuff = [
-        {
-            _id: 'oeihfzeoi',
-            title: 'Mon premier objet',
-            description: 'Les infos de mon premier objet',
-            imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-            price: 4900,
-            userId: 'qsomihvqios',
-        },
-        {
-            _id: 'oeihfzeomoihi',
-            title: 'Mon deuxième objet',
-            description: 'Les infos de mon deuxième objet',
-            imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-            price: 2900,
-            userId: 'qsomihvqios',
-        },
-    ];
-    res.status(200).json(stuff);
+mongoose.connect('mongodb://localhost:27017/expressjsstart',
+    { useNewUrlParser: true,
+            useUnifiedTopology: true })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+app.use(cors('*'));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+
+app.post('/api/posts', async (req, res) => {
+    const post = new postModel({
+        title: req.body.title,
+        description: req.body.description
+    });
+    await post.save()
+        .then(() => res.json({message: 'Post saved successfully!'}).status(201))
+        .catch(error => res.json({error}).status(400));
 });
+
 
 module.exports = app;
