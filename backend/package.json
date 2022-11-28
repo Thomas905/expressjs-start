@@ -1,0 +1,23 @@
+{
+  "name": "expressjs-start",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thomas905/expressjs-start.git"
+  },
+  "author": "Thomas Clarisse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thomas905/expressjs-start/issues"
+  },
+  "homepage": "https://github.com/Thomas905/expressjs-start#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
